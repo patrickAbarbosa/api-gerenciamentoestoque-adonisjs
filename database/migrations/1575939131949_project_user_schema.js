@@ -3,32 +3,28 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class CategorySchema extends Schema {
+class ProjectUserSchema extends Schema {
   up () {
-    this.create('categories', (table) => {
-      table.increments().unique()
-      table.string('name', 255).notNullable().unique()
+    this.create('project_users', (table) => {
       table.integer('project_id')
-        .unique()
-        .notNullable()
+      	.notNullable()
         .unsigned()
         .references('id')
         .inTable('projects')
         .onUpdate('CASCADE')
-      table.string('user_id')
-        .notNullable()
+      table.integer('user_id')
+      	.notNullable()
         .unsigned()
         .references('id')
         .inTable('users')
         .onUpdate('CASCADE')
-        .onDelete('CASCADE')
       table.timestamps()
     })
   }
 
   down () {
-    this.drop('categories')
+    this.drop('project_users')
   }
 }
 
-module.exports = CategorySchema
+module.exports = ProjectUserSchema
